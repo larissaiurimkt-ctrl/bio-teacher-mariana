@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
@@ -150,52 +149,11 @@ function RootShell({ children }: { children: React.ReactNode }) {
   );
 }
 
-function BioLinkBehavior() {
-  useEffect(() => {
-    const links = Array.from(document.querySelectorAll<HTMLAnchorElement>("a"));
-
-    const lessonsCta = links.find((link) =>
-      link.textContent?.includes("Quero começar minhas aulas"),
-    );
-
-    if (lessonsCta) {
-      const message = encodeURIComponent(
-        "Oi, Teacher Mari! Vim pelo seu link da bio e gostaria de saber mais sobre as aulas de inglês. Pode me explicar como funcionam e quais são os horários disponíveis? 🖤",
-      );
-      lessonsCta.href = `https://wa.me/553191569925?text=${message}`;
-      lessonsCta.target = "_blank";
-      lessonsCta.rel = "noopener noreferrer";
-
-      const description = lessonsCta.querySelector("span span:nth-child(2)");
-      if (description) {
-        description.textContent =
-          "Vagas abertas para aulas particulares online. Me chama no WhatsApp e conversamos sobre o melhor formato para você.";
-      }
-    }
-
-    const speakingCard = links.find((link) =>
-      link.textContent?.includes("Speaking, música e cotidiano"),
-    );
-
-    if (speakingCard) {
-      speakingCard.removeAttribute("href");
-      speakingCard.removeAttribute("target");
-      speakingCard.removeAttribute("rel");
-      speakingCard.setAttribute("aria-disabled", "true");
-      speakingCard.style.pointerEvents = "none";
-      speakingCard.style.cursor = "default";
-    }
-  }, []);
-
-  return null;
-}
-
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
   return (
     <QueryClientProvider client={queryClient}>
-      <BioLinkBehavior />
       <Outlet />
     </QueryClientProvider>
   );

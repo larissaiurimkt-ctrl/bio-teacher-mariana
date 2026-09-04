@@ -11,7 +11,7 @@ import {
 import appCss from "../styles.css?url";
 
 const siteUrl = "https://bioteachermari.lovable.app";
-const shareImage = `${siteUrl}/teacher-mari-share.jpg?v=2`;
+const shareImage = `${siteUrl}/teacher-mari-share.jpg?v=3`;
 
 function NotFoundComponent() {
   return (
@@ -91,13 +91,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "Inglês prático, funcional e com personalidade. Aulas online, speaking, música e inglês do dia a dia.",
       },
       { property: "og:image", content: shareImage },
+      { property: "og:image:url", content: shareImage },
       { property: "og:image:secure_url", content: shareImage },
       { property: "og:image:type", content: "image/jpeg" },
-      { property: "og:image:width", content: "1200" },
-      { property: "og:image:height", content: "630" },
+      { property: "og:image:width", content: "400" },
+      { property: "og:image:height", content: "210" },
       {
         property: "og:image:alt",
-        content: "Teacher Mari — inglês de verdade, sem decoreba",
+        content: "Teacher Mari — Fluência não é dom. É método.",
       },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "Teacher Mari | Inglês de verdade, sem decoreba" },

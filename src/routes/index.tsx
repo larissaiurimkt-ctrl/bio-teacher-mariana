@@ -33,24 +33,24 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
+const whatsappMessage = encodeURIComponent(
+  "Oi, Teacher Mari! Vim pelo seu link da bio e quero saber mais sobre as suas aulas de inglês. Pode me contar como funcionam e me passar as opções de horários? 🖤",
+);
+
 const profile = {
   instagram: "https://www.instagram.com/teach.mari/",
   flexge: "https://teachers.flexge.com/teacher-mari",
   placement: "https://student.flexge.com/v2/placement/teachermari",
+  whatsapp: `https://wa.me/553191569925?text=${whatsappMessage}`,
 };
 
 type LinkItem = {
   label: string;
   description?: string;
-  href: string;
+  href?: string;
   icon: React.ReactNode;
+  disabled?: boolean;
 };
-
-const TextBadge = ({ children }: { children: React.ReactNode }) => (
-  <span className="font-serif text-base font-semibold leading-none tracking-tight">
-    {children}
-  </span>
-);
 
 type Section = {
   title: string;
@@ -64,8 +64,8 @@ const sections: Section[] = [
       {
         label: "Quero começar minhas aulas",
         description:
-          "Vagas abertas para aulas particulares online. Me chama no Direct e conversamos sobre o melhor formato para você.",
-        href: profile.instagram,
+          "Vagas abertas para aulas particulares online. Me chama no WhatsApp e conversamos sobre o melhor formato para você.",
+        href: profile.whatsapp,
         icon: <MessageCircle className="h-5 w-5" />,
       },
     ],
@@ -101,8 +101,8 @@ const sections: Section[] = [
         label: "Speaking, música e cotidiano",
         description:
           "Expressões, gírias, pronúncia e conversação para quem entende inglês, mas ainda trava na hora de falar.",
-        href: profile.instagram,
         icon: <Headphones className="h-5 w-5" />,
+        disabled: true,
       },
     ],
   },
@@ -134,7 +134,6 @@ function Index() {
         }}
       />
 
-      {/* Full-width cover — mantém o mesmo template da página original */}
       <div className="relative h-56 w-full overflow-hidden sm:h-72 md:h-80">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(122,27,45,.72),transparent_35%),radial-gradient(circle_at_72%_35%,rgba(77,19,32,.7),transparent_30%),linear-gradient(135deg,#08070a_0%,#190a0f_45%,#09080b_100%)]" />
         <div className="absolute inset-0 opacity-30 [background-image:repeating-linear-gradient(125deg,transparent_0,transparent_18px,rgba(255,255,255,.04)_19px,transparent_20px)]" />
@@ -148,7 +147,6 @@ function Index() {
 
       <div className="relative mx-auto flex w-full max-w-xl flex-col px-6 pb-16">
         <header className="flex flex-col items-center text-center">
-          {/* Mantém o avatar circular do template, sem usar foto da outra Mariana */}
           <div
             className="relative -mt-20 mb-6 flex h-36 w-36 items-center justify-center overflow-hidden rounded-full bg-card ring-4 ring-background sm:h-40 sm:w-40"
             style={{
@@ -231,18 +229,12 @@ function Index() {
                 <div className="h-px flex-1 bg-gradient-to-l from-transparent to-neon-deep/40" />
               </div>
               <nav className="flex flex-col gap-3">
-                {section.links.map(({ label, description, href, icon }, idx) => {
+                {section.links.map(({ label, description, href, icon, disabled }, idx) => {
                   const alternate = idx % 2 === 1;
                   const cardBg = alternate ? "bg-primary" : "bg-accent";
-                  return (
-                    <a
-                      key={label}
-                      href={href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`group relative flex items-center gap-4 rounded-xl ${cardBg} px-5 py-4 text-white shadow-paper transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_16px_40px_-14px_var(--neon-glow)]`}
-                    >
-                      <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-white/10 text-white ring-1 ring-white/25 transition-colors group-hover:bg-white group-hover:text-foreground">
+                  const cardContent = (
+                    <>
+                      <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-white/10 text-white ring-1 ring-white/25">
                         {icon}
                       </span>
                       <span className="flex flex-1 flex-col text-left">
@@ -253,9 +245,34 @@ function Index() {
                           </span>
                         )}
                       </span>
-                      <span className="font-serif text-xl text-white/70 transition-transform group-hover:translate-x-0.5 group-hover:text-white">
-                        →
-                      </span>
+                      {!disabled && (
+                        <span className="font-serif text-xl text-white/70 transition-transform group-hover:translate-x-0.5 group-hover:text-white">
+                          →
+                        </span>
+                      )}
+                    </>
+                  );
+
+                  if (disabled) {
+                    return (
+                      <div
+                        key={label}
+                        className={`relative flex items-center gap-4 rounded-xl ${cardBg} px-5 py-4 text-white shadow-paper`}
+                      >
+                        {cardContent}
+                      </div>
+                    );
+                  }
+
+                  return (
+                    <a
+                      key={label}
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`group relative flex items-center gap-4 rounded-xl ${cardBg} px-5 py-4 text-white shadow-paper transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_16px_40px_-14px_var(--neon-glow)]`}
+                    >
+                      {cardContent}
                     </a>
                   );
                 })}
@@ -264,7 +281,6 @@ function Index() {
           ))}
         </div>
 
-        {/* Mesmo carrossel do template, agora com temas da Teacher Mari */}
         <section className="mt-14">
           <div className="mb-4 flex items-center gap-4">
             <div className="h-px flex-1 bg-gradient-to-r from-transparent to-neon-deep/40" />
@@ -334,7 +350,6 @@ function Index() {
         </footer>
       </div>
 
-      {/* Mantém o botão flutuante do template, agora levando ao canal confirmado: Instagram */}
       <a
         href={profile.instagram}
         target="_blank"

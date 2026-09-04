@@ -105,6 +105,19 @@
     letter-spacing: 0.01em;
   }
 
+  /* Foto da Teacher Mari no avatar circular do template */
+  header > div[class*="-mt-20"][class*="h-36"][class*="rounded-full"] {
+    background-image: url("/teacher-mari-profile.svg") !important;
+    background-size: cover !important;
+    background-position: center 18% !important;
+    background-repeat: no-repeat !important;
+  }
+
+  header > div[class*="-mt-20"][class*="h-36"][class*="rounded-full"] > div:nth-of-type(2),
+  header > div[class*="-mt-20"][class*="h-36"][class*="rounded-full"] > span.font-gothic {
+    display: none !important;
+  }
+
   @keyframes social-heart-pulse {
     0%, 100% {
       transform: scale(1);

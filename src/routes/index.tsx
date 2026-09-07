@@ -157,7 +157,7 @@ function Index() {
           >
             <div className="absolute inset-2 rounded-full border border-accent/25" />
             <img
-              src={profileAsset.url}
+              src={profileAsset}
               alt="Foto de perfil da Teacher Mari"
               className="absolute inset-0 h-full w-full object-cover"
             />

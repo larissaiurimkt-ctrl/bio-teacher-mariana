@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import profileAsset from "@/assets/teacher-mari-profile.png.asset.json";
 import {
   BookOpen,
   GraduationCap,

@@ -156,8 +156,11 @@ function Index() {
             }}
           >
             <div className="absolute inset-2 rounded-full border border-accent/25" />
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_25%,rgba(107,23,37,.45),transparent_55%)]" />
-            <span className="relative font-gothic text-5xl text-accent sm:text-6xl">TM</span>
+            <img
+              src={profileAsset.url}
+              alt="Foto de perfil da Teacher Mari"
+              className="absolute inset-0 h-full w-full object-cover"
+            />
           </div>
 
           <p className="font-gothic text-2xl leading-none text-accent sm:text-3xl">
